@@ -109,7 +109,7 @@ def parse_TCP(hex_data):
     fields.append(("Urgent Pointer", hex_data[36:40]))
     header_length_decimal = convert_hex_field_to_Decimal("header length", hex_data[24])
     if header_length_decimal > 5:
-        num_of_diff_bytes = int(hex_data[24]) - 5
+        num_of_diff_bytes = int(hex_data[24], 16) - 5
         num_of_chars = num_of_diff_bytes * 8
         ending_index = 40 + num_of_chars
         fields.append(("Options", hex_data[40:ending_index]))
@@ -151,7 +151,7 @@ def parse_IPv4(hex_data):
     ending_index = 40
     header_length_decimal = convert_hex_field_to_Decimal("IHL", hex_data[1])
     if  header_length_decimal > 5:
-        num_of_diff_bytes = int(hex_data[1]) - 5
+        num_of_diff_bytes = int(hex_data[1], 16) - 5
         num_of_chars = num_of_diff_bytes * 8
         #Update last index as there were IPv4 options in between the end of the IPv4 packet and the TCP packet starting 
         ending_index = 40 + num_of_chars
